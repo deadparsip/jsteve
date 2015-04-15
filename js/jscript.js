@@ -15,9 +15,7 @@ function Calippo() {
 		$helper = $('.helper');
         $d = $(document), $w = $(window), $b = $('body'),
         width = $w.width(), height = $w.height(), $next = $('a.next'), $prev = $('a.prev'), $botty = $('#botty'),
-        $boxes = $('.boxes'), timer = 1;
-
-        window.localStorage.setItem('width', width);
+        $boxes = $('.boxes'), timer = 1;        
 
         $botty.on('mouseover touchstart', function () {
             $(this).addClass("upIt");
@@ -73,6 +71,7 @@ function Calippo() {
 			}, 3000);			
         }
 		
+		window.localStorage.setItem('widths', width);
     }
 
 
@@ -114,12 +113,13 @@ function Calippo() {
         }
     }
 
-    function getSizes() {
-        width = $w.width().toString();
-        var w = window.localStorage.getItem('width');
-        if ((w !== null && w !== width) || w === null) {
+    function getSizes() {        		
+		width = $w.width().toString();        		
+		var w = window.localStorage.getItem('widths');					
+        if ((w !== null && w !== width) || w === null) {            
             window.localStorage.setItem('widths', width);
-            window.location.reload();
+			window.location.reload();
+			
         }
     }
 
