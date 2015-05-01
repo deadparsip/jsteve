@@ -48,7 +48,10 @@ a#home {
 #main {
     width:99%; padding:1% 0 0 0; margin:0 auto; max-width:1024px;position:relative;
 }
-
+nav {
+	display:none;
+}
+	
 .boxes {
     width:98%; 
 	margin:3% 1% 1% 0;
@@ -119,7 +122,7 @@ a#home {
 
 
 
-
+/*
 #triangle-left, #triangle-right{
 	width: 0;
 	height: 0;
@@ -142,7 +145,7 @@ a#home {
 	margin-left:0;
 	float:right;
 }
-
+*/
 
 /***************************************** tabs *****************************************/
 @media only screen and (min-width: 520px) { 
@@ -168,7 +171,16 @@ a#home {
         left:1%;
         display:block;
     }    
-    
+    nav {
+		width: 96%;
+		display:block;
+	}
+	nav li {
+		color: #fff;
+		display: inline-block;
+		width: 20%;
+		cursor:pointer;		
+	}
     #wrapper {
 		margin-top:6%;
     }
@@ -203,6 +215,13 @@ a#home {
 		display:block;
 	}
     
+	.links {
+		display:none;
+	}
+	
+	#nav {
+		display:block;
+	}
     
     #botty {
         bottom:-75px;

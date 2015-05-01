@@ -1,6 +1,6 @@
 function Calippo() {
 
-    var cakes, $w, $h, $d, $b, width, $next, $prev, $boxes, $helper, // Closures stole my hamsters and returned them shaven
+    var cakes, $w, $h, $d, $b, width, $next, $prev, $boxes, $helper, $nav // Closures stole my hamsters and returned them shaven
 		loc = window.location.href.indexOf('poetry') > 0 ? 'poetry' : 
 			  window.location.href.indexOf('stories') > 0 ? 'stories' : 
 			  window.location.href.indexOf('films') > 0 ? 'films' : 
@@ -16,6 +16,7 @@ function Calippo() {
         $d = $(document), $w = $(window), $b = $('body'),
         width = $w.width(), height = $w.height(), $next = $('a.next'), $prev = $('a.prev'), $botty = $('#botty'),
         $boxes = $('.boxes'), timer = 1;        
+		$nav = $('nav');
 
         $botty.on('mouseover touchstart', function () {
             $(this).addClass("upIt");
@@ -71,6 +72,12 @@ function Calippo() {
 			}, 3000);			
         }
 		
+		$($nav).on('click',function(event) {
+			var link = ($(event.target).attr('class'));
+			getItem(event,link);
+			
+		});
+		
 		window.localStorage.setItem('widths', width);
     }
 
@@ -112,6 +119,21 @@ function Calippo() {
             $next.removeClass('opac');
         }
     }
+	
+    function getItem(e,item) {
+		e.preventDefault();
+        window.location.hash = "";
+		$('.fadeInRightBig, .fadeInLeftBig').removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
+			cakes = $('.boxes.'+item);							
+			console.log('.boxes.'+item);
+			window.localStorage.setItem('box' + loc, cakes.find('h2').text());
+			$(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
+			cakes.show().addClass('fadeInLeftBig');
+			console.log(cakes);
+		});        
+    }	
+	
+	
 
     function getSizes() {        		
 		width = $w.width().toString();        		
