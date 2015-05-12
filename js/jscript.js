@@ -28,6 +28,12 @@ function Calippo() {
             'width': width,
             'height': height
         });
+		
+		var cacheDate = localStorage.getItem('cache');
+		if (cacheDate !== "casserole") {
+				window.localStorage.clear();
+				window.localStorage.setItem('cache', "casserole");
+		}		
 
         if (window.location.hash !== "" && window.location.hash !== "#") {
             localStorage.setItem('box' + loc, window.location.hash.replace('#', '').toLowerCase());
@@ -76,7 +82,7 @@ function Calippo() {
 			var link = ($(event.target).attr('class'));
 			getItem(event,link);
 			
-		});
+		});			
 		
 		window.localStorage.setItem('widths', width);
     }
