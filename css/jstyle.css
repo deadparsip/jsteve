@@ -65,12 +65,17 @@ nav ul {
 	padding-left:0;
 }
 nav li {
-	color: #fff;
+	color: rgba(204, 204, 204,0.8);
 	display: inline-block;
 	width: 18%;
 	cursor:pointer;	
+	transition:all 1s;
+	color: rgba(204, 204, 204,0.8);
 }
-	
+
+nav li.selected{
+	color:#fff;
+}
 	
 .boxes {
     width:98%; 
