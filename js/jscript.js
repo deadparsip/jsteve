@@ -19,10 +19,73 @@ function Calippo() {
 		$nav = $('nav'),
 		_hash = window.location.hash,
 		cacheDate = localStorage.getItem('cache'),
-		cakes = {};
+		cakes = {};    
 
-    function init(loc) {
 
+		
+    function nextItem(e) {
+        window.location.hash = "";
+        if (cakes.next('.boxes').length) {
+            cakes.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
+                window.location.hash = "";
+                cakes = $(this).next();
+                window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
+                $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd')
+                    .next('.boxes').show().addClass('fadeInRightBig');
+                if (!cakes.next('.boxes').length) {
+                    $next.addClass('opac');
+                }
+            });
+            $prev.removeClass('opac');
+        }
+    }
+	
+	
+
+    function prevItem(e) {
+        window.location.hash = "";
+        if (cakes.prev('.boxes').length) {
+            cakes.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutRightBig').on('animationend webkitAnimationEnd', function () {
+                cakes = $(this).prev();
+                window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
+                $(this).hide().removeClass('fadeOutRightBig').off('animationend webkitAnimationEnd')
+                    .prev('.boxes').show().addClass('fadeInLeftBig');
+                if (!cakes.prev('.boxes').length) {
+                    $prev.addClass('opac');
+                }
+            });
+            $next.removeClass('opac');
+        }
+    }
+	
+	
+
+    function getItem(e, item) {
+        e.preventDefault();
+        window.location.hash = "";
+        $('.fadeInRightBig, .fadeInLeftBig').removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
+            cakes = $('.boxes.' + item);
+            window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
+            $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
+            cakes.show().addClass('fadeInLeftBig');
+        });
+    }
+
+
+
+    function getSizes() {
+        width = $w.width().toString();
+        var w = window.localStorage.getItem('widths');
+        if ((w !== null && w !== width) || w === null) {
+            window.localStorage.setItem('widths', width);
+            window.location.reload();
+
+        }
+    }
+	
+	
+	function init(loc) {
+		
         $botty.on('mouseover touchstart', function () {
             $(this).addClass("upIt");
         }).on('mouseout', function () {
@@ -85,66 +148,6 @@ function Calippo() {
             });
         });
 
-    }
-
-
-
-    function nextItem(e) {
-        //e.preventDefault();
-        window.location.hash = "";
-        if (cakes.next('.boxes').length) {
-            cakes.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
-                window.location.hash = "";
-                cakes = $(this).next();
-                window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
-                $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd')
-                    .next('.boxes').show().addClass('fadeInRightBig');
-                if (!cakes.next('.boxes').length) {
-                    $next.addClass('opac');
-                }
-            });
-            $prev.removeClass('opac');
-        }
-    }
-
-    function prevItem(e) {
-        //e.preventDefault();
-        window.location.hash = "";
-        if (cakes.prev('.boxes').length) {
-            cakes.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutRightBig').on('animationend webkitAnimationEnd', function () {
-                cakes = $(this).prev();
-                window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
-                $(this).hide().removeClass('fadeOutRightBig').off('animationend webkitAnimationEnd')
-                    .prev('.boxes').show().addClass('fadeInLeftBig');
-                if (!cakes.prev('.boxes').length) {
-                    $prev.addClass('opac');
-                }
-            });
-            $next.removeClass('opac');
-        }
-    }
-
-    function getItem(e, item) {
-        e.preventDefault();
-        window.location.hash = "";
-        $('.fadeInRightBig, .fadeInLeftBig').removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
-            cakes = $('.boxes.' + item);
-            window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
-            $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
-            cakes.show().addClass('fadeInLeftBig');
-        });
-    }
-
-
-
-    function getSizes() {
-        width = $w.width().toString();
-        var w = window.localStorage.getItem('widths');
-        if ((w !== null && w !== width) || w === null) {
-            window.localStorage.setItem('widths', width);
-            window.location.reload();
-
-        }
     }
 
     return {
