@@ -94,9 +94,9 @@ function Calippo() {
 
         $b.css({ 'width': width, 'height': height });
 
-        if (cacheDate !== "badgerHarvest") {
+        if (cacheDate !== "spudspatula") {
             window.localStorage.clear();
-            window.localStorage.setItem('cache', "badgerHarvest");
+            window.localStorage.setItem('cache', "spudspatula");
         }
 
         if (_hash !== "" && _hash !== "#") {
@@ -106,7 +106,7 @@ function Calippo() {
         var box = window.localStorage.getItem('box' + loc);
         if (box !== null) {
             cakes = $('.boxes.' + box).show().addClass('fadeInRightBig visible');
-            if ($('.boxes').eq(0).hasClass(box)) {
+            if ($('.boxes').eq(0).hasClass(box.toLowerCase())) {
 				$prev.removeClass('opac');
 			}
             $('nav li.' + box).addClass('selected');
@@ -126,12 +126,12 @@ function Calippo() {
             timer = setTimeout(getSizes, 200);
         });
 
-        if ($istouchdevice) {
-            $('.helper').show();
-            setTimeout(function () {
-                $helper.fadeOut(500);
-            }, 3000);
-        }
+
+		//$helper.show();
+		setTimeout(function () {
+			$helper.fadeOut(500);
+		}, 3000);
+
 
         $($nav).on('click', function (event) {
             var link = ($(event.target).attr('class'));

@@ -61,16 +61,17 @@ nav {
 	display:block;
 }
 nav ul {
-	margin-left:0;
+	margin:0;
 	padding-left:0;
 }
 nav li {
 	color: rgba(204, 204, 204,0.8);
 	display: inline-block;
-	width: 18%;
+	width: 23%;
 	cursor:pointer;	
 	transition:all 1s;
 	color: rgba(204, 204, 204,0.8);
+	margin: 2% 0;
 }
 
 nav li.selected{
@@ -202,12 +203,15 @@ nav li.selected{
 		display:block;
 	}
 	nav li {
-		color: #fff;
 		display: inline-block;
-		width: 19%;
+		width: 12%;
 		cursor:pointer;		
 	}
-    #wrapper {
+	nav li.spaceSloth { 
+		width:19%;
+	}
+    
+	#wrapper {
 		margin-top:6%;
     }
     #main {
