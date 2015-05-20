@@ -110,10 +110,9 @@ nav li.selected{
 
 
 #botty {
-    position:fixed;bottom:-40px;width:100%;min-height:45px;margin:0 auto;background:#ccc;
+    position:fixed;bottom:-40px;width:100%;min-height:45px;margin:0 auto;
     -webkit-transition: all .6s ease-out; transition: all .6s ease-out;
-    -webkit-backface-visibility: hidden;
-	display:none
+    -webkit-backface-visibility: hidden;	
 }
 #botty.upIt {
     bottom:0;
@@ -254,13 +253,13 @@ nav li.selected{
 	}
     
     #botty {
-        bottom:-75px;
+        bottom:-32px;
     }
     #botty .contact {
         background-size:normal;    
     }
     #botty .contact, #botty .contact a,#botty .contact.git,#botty .contact.git a {
-        width:100px;height:100px;
+        width:50px;height:50px;
     }   
     
 }

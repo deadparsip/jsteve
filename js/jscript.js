@@ -94,9 +94,9 @@ function Calippo() {
 
         $b.css({ 'width': width, 'height': height });
 
-        if (cacheDate !== "spudspatula") {
+        if (cacheDate !== "trouserCouch") {
             window.localStorage.clear();
-            window.localStorage.setItem('cache', "spudspatula");
+            window.localStorage.setItem('cache', "trouserCouch");
         }
 
         if (_hash !== "" && _hash !== "#") {
