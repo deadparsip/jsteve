@@ -29,7 +29,7 @@ function Calippo() {
             cakes.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
                 window.location.hash = "";
                 cakes = $(this).next();
-                window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
+                //window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
                 $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd')
                     .next('.boxes').show().addClass('fadeInRightBig');
                 if (!cakes.next('.boxes').length) {
@@ -47,7 +47,7 @@ function Calippo() {
         if (cakes.prev('.boxes').length) {
             cakes.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutRightBig').on('animationend webkitAnimationEnd', function () {
                 cakes = $(this).prev();
-                window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
+                //window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
                 $(this).hide().removeClass('fadeOutRightBig').off('animationend webkitAnimationEnd')
                     .prev('.boxes').show().addClass('fadeInLeftBig');
                 if (!cakes.prev('.boxes').length) {
@@ -65,7 +65,7 @@ function Calippo() {
         window.location.hash = "";
         $('.fadeInRightBig, .fadeInLeftBig').removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
             cakes = $('.boxes.' + item);
-            window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
+            //window.localStorage.setItem('box' + loc, item.replace('.boxes.', ''));
             $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
             cakes.show().addClass('fadeInLeftBig');
         });
@@ -94,7 +94,7 @@ function Calippo() {
 
         $b.css({ 'width': width, 'height': height });
 
-        if (cacheDate !== "trouserCouch") {
+        /*if (cacheDate !== "trouserCouch") {
             window.localStorage.clear();
             window.localStorage.setItem('cache', "trouserCouch");
         }
@@ -110,11 +110,11 @@ function Calippo() {
 				$prev.removeClass('opac');
 			}
             $('nav li.' + box).addClass('selected');
-        } else {
+        } else {*/
             cakes = $('.boxes').eq(0).show().addClass('fadeInRightBig');
             window.localStorage.setItem('box' + loc, cakes.attr('class').split(" ")[0].replace('--', ''));
-            $('nav li:first').addClass('selected');
-        }
+            //$('nav li:first').addClass('selected');
+        //}
 
         $next.on('click', nextItem);
         $prev.on('click', prevItem);
@@ -135,6 +135,9 @@ function Calippo() {
 
         $($nav).on('click', function (event) {
             var link = ($(event.target).attr('class'));
+			if (link.indexOf('selected')>0) {
+				return
+			}
             getItem(event, link);
             $(event.target).addClass('selected').siblings().removeClass('selected');
         });
