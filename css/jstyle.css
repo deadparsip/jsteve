@@ -7,10 +7,10 @@ body {
 
 /*Fonts*/
 h1, h1 a {
-    font-size:48px; font-weight:400; color:#fff; text-align:right;margin:1% 2% 0;
+    font-size:48px; font-size:14vw; font-weight:400; color:#fff; text-align:right;margin:1% 2% 0;
 }
 #vague h1 a {
-    font-size:39px; font-weight:400; color:#fff; text-align:right;margin:1% 2% 0;
+    font-size:39px; font-size:9vw;  font-weight:400; color:#fff; text-align:right;margin:1% 2% 0;
 }
 
 h2 {
@@ -194,8 +194,12 @@ article:nth-child(2) {
 /***************************************** tabs *****************************************/
 @media only screen and (min-width: 520px) { 
     h1,h1 a, #vague h1 a  {
-        font-size:70px; line-height:1em;
+        font-size:70px; font-size:14vw; line-height:1em;
     }
+	#vague h1 a  {
+		font-size:70px; font-size:9vw;
+	}
+	
     h2 {
         font-size:37px;
         margin:5px auto 15px;
@@ -293,7 +297,11 @@ article:nth-child(2) {
 
 /***************************************** desktops *****************************************/
 @media only screen and (min-width: 980px) { 
-    h2 {
+    h1,h1 a, #vague h1 a  { 
+		font-size:105px;
+	}
+	
+	h2 {
         font-size:47px;
     }
     
