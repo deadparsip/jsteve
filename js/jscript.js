@@ -9,15 +9,11 @@
 
 
 function Calippo() {
-
-    var loc = window.location.href.indexOf('poetry') > 0 ? 'poetry' : 
-        window.location.href.indexOf('stories') > 0 ? 'stories' :
-        window.location.href.indexOf('films') > 0 ? 'films' : 
-        window.location.href.indexOf('news') > 0 ? 'news' : 
-        window.location.href.indexOf('pics') > 0 ? 'pics' : 
-        window.location.href.indexOf('blog') > 0 ? 'blog' : 'home',
-        
-        $istouchdevice = typeof window.ontouchstart !== 'undefined',
+	var self = this;
+	
+    self.loc = 'home'
+			
+	var $istouchdevice = typeof window.ontouchstart !== 'undefined',
         $helper = $('.helper'),
         $d = $(document),
         $b = $('body'),
@@ -42,7 +38,6 @@ function Calippo() {
                 cakes = $(this).next();
                 $('.selected').removeClass('selected');
                 $nav.find('.' + cakes.attr('class').split(" ")[0].replace('--', '')).addClass('selected');
-                //window.localStorage.setItem(`box  ${loc}`, cakes.attr('class').split(" ")[0].replace('--', ''));
                 $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd')
                     .next('.boxes').show().addClass('fadeInRightBig');
                 if (!cakes.next('.boxes').length) {
@@ -62,7 +57,6 @@ function Calippo() {
                 cakes = $(this).prev();
                 $('.selected').removeClass('selected');
                 $nav.find('.' + cakes.attr('class').split(" ")[0].replace('--', '')).addClass('selected');
-                //window.localStorage.setItem(`box  ${loc}`, cakes.attr('class').split(" ")[0].replace('--', ''));
                 $(this).hide().removeClass('fadeOutRightBig').off('animationend webkitAnimationEnd')
                     .prev('.boxes').show().addClass('fadeInLeftBig');
                 if (!cakes.prev('.boxes').length) {
@@ -80,7 +74,6 @@ function Calippo() {
         window.location.hash = "";
         $('.fadeInRightBig, .fadeInLeftBig').removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
             cakes = $('.boxes.' + item);
-            //window.localStorage.setItem(`box  ${loc}`, item.replace('.boxes.', ''));
             $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
             cakes.show().addClass('fadeInLeftBig');
         });
@@ -89,7 +82,8 @@ function Calippo() {
 	
 
     function init(loc) {
-
+		self.loc = loc;
+		
         if (_hash !== "" && _hash !== "#") {
             var aHash = _hash.replace('#', '').toLowerCase();
             if ($('.boxes.' + aHash).length) {
