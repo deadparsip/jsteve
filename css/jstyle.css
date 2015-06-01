@@ -1,9 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Quicksand:400,700);
 body {
-    font-family: 'Quicksand', sans-serif; width:100%; margin:0; padding:0; background:#000;overflow-x:hidden;overflow-y:scroll
-    
+    font-family: 'Quicksand', sans-serif; width:100%; margin:0; padding:0; background:#000;overflow-x:hidden;overflow-y:scroll;min-height:600px;
+    transition:background 18s;
 }
-
+body.whelk { background:#00a8ff}
+body.nail { background:#ff0030}
+body.tooth { background:#00de5e}
 
 /*Fonts*/
 h1, h1 a {
@@ -51,7 +53,7 @@ p.go:hover {
 
 /*Elements*/
 #wrapper {
-    width:96%; padding:0; margin:7% 2% 0; text-align:center; 
+    width:96%; padding:0; margin:5% 2% 0; text-align:center; 
 }
 
 #main {
@@ -110,7 +112,11 @@ article:nth-child(2) {
 .boxes img, .stories .boxes p, .bio .boxes p {
     width:96%;    
 }
-    
+.boxes img.main {
+	width: 107%;
+	margin: 0px 0px 0px -4%;
+	max-width: 980px;
+}
 .poetry .boxes a,.stories .boxes a {
     text-decoration:underline;
 }
@@ -318,6 +324,11 @@ article:nth-child(2) {
 	
 	nav li.spacesloth { 
 		width:19%;
+	}
+	.boxes img.main {
+		width: 100%;
+		margin: inherit;
+		max-width: 980px;
 	}
 }
 

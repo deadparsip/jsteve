@@ -94,6 +94,7 @@ function Calippo() {
             var aHash = _hash.replace('#', '').toLowerCase();
             if ($('.boxes.' + aHash).length) {
                 cakes = $('.boxes.' + aHash).show().addClass('fadeInRightBig visible');
+				
                 if ($boxes.eq(0).hasClass(aHash.toLowerCase()) && $prev.length) {
                     $prev.removeClass('opac');
                 }
@@ -124,12 +125,12 @@ function Calippo() {
         });
 
 
-        $(document).on('click', '.go', function (e) {
+        /*$(document).on('click', '.go', function (e) {
             e.preventDefault();
             $b.addClass('fadeOutUpBig animated').on('animationend webkitAnimationEnd', function () {
                 window.location.href = $(e.target).parents('a').attr('href');
             });
-        });
+        });*/
 
     }
 
