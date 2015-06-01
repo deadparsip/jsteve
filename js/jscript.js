@@ -1,19 +1,10 @@
 'use strict';
 
-(function ($) {
-    $.fn.whelkit = function (text) {
-        return text.replace(/[^a-z,^A-Z]/g, '').replace('selected', '').replace('circle', '').slice(0, 20);
-    };
-}(jQuery));
-
-
-
-function Calippo() {
+(function Calippo() {
 	var self = this;
-	
-    self.loc = 'home'
 			
 	var $istouchdevice = typeof window.ontouchstart !== 'undefined',
+		loc = 'home',
         $helper = $('.helper'),
         $d = $(document),
         $b = $('body'),
@@ -81,8 +72,7 @@ function Calippo() {
 
 	
 
-    function init(loc) {
-		self.loc = loc;
+    (function init(loc) {
 		
         if (_hash !== "" && _hash !== "#") {
             var aHash = _hash.replace('#', '').toLowerCase();
@@ -126,12 +116,14 @@ function Calippo() {
             });
         });*/
 
-    }
+    })()
 
-    return {
-        init: init
+
+})();
+
+(function ($) {
+    $.fn.whelkit = function (text) {
+        return text.replace(/[^a-z,^A-Z]/g, '').replace('selected', '').replace('circle', '').slice(0, 20);
     };
+}(jQuery));
 
-}
-
-var trouser = new Calippo();
