@@ -1,97 +1,81 @@
 'use strict';
 
 (function Calippo() {
-	var self = this;
 			
 	var $istouchdevice = typeof window.ontouchstart !== 'undefined',
 		loc = 'home',
         $helper = $('.helper'),
-        $d = $(document),
-        $b = $('body'),
-        $next = $('a.next'),
-        $prev = $('a.prev'),
-        $botty = $('#botty'),
         $boxes = $('.boxes'),
+		$currentBox = $boxes.eq(0),
+		$nextBox = $boxes.eq(1),
+		$prevBox = $boxes.eq(0),
+		$titles = $boxes.find('h2'),
         timer = 1,
         $nav = $('nav'),
+		$currentNav = $nav.find('li').eq(0),
 		$go = $('p.go'),
-        _hash = window.location.hash,
-        cacheDate = localStorage.getItem('cache'),
-        cakes = {};
+        _hash = window.location.hash.replace('#', '').toLowerCase();      
 
-
-
+		
     function nextItem(e) {
-        window.location.hash = "";
-        if (cakes.next('.boxes').length) {
-            cakes.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
-                window.location.hash = "";
-                cakes = $(this).next();
-                $('.selected').removeClass('selected');
-                $nav.find('.' + cakes.attr('class').split(" ")[0].replace('--', '')).addClass('selected');
-                $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd')
-                    .next('.boxes').show().addClass('fadeInRightBig');
-                if (!cakes.next('.boxes').length) {
-                    $next.addClass('opac');
-                }
+        window.location.hash = "";		
+		if ($nextBox.length>0) {
+			$prevBox = $currentBox;
+			$currentBox = $currentBox.next();
+			$nextBox = $currentBox.next().length ? $currentBox.next() : "";		
+			$currentNav = $currentNav.hasClass('selected') ? $currentNav.next().addClass('selected') : $currentNav.addClass('selected');
+			$currentNav.siblings().removeClass('selected');		
+            $prevBox.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
+                window.location.hash = "";                
+                $prevBox.hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
+                $currentBox.show().addClass('fadeInRightBig');				
             });
-            $prev.removeClass('opac');
         }
     }
-
-
 
     function prevItem(e) {
-        window.location.hash = "";
-        if (cakes.prev('.boxes').length) {
-            cakes.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutRightBig').on('animationend webkitAnimationEnd', function () {
-                cakes = $(this).prev();
-                $('.selected').removeClass('selected');
-                $nav.find('.' + cakes.attr('class').split(" ")[0].replace('--', '')).addClass('selected');
-                $(this).hide().removeClass('fadeOutRightBig').off('animationend webkitAnimationEnd')
-                    .prev('.boxes').show().addClass('fadeInLeftBig');
-                if (!cakes.prev('.boxes').length) {
-                    $prev.addClass('opac');
-                }
+		if ($prevBox.length>0) {								
+			$nextBox = $currentBox;
+			$currentBox = $currentBox.prev();			
+			$prevBox = $currentBox.prev('article').length ? $currentBox.prev() : "";							
+			$currentNav=$currentNav.prev().length ? $currentNav.prev().addClass('selected') : $currentNav.removeClass('selected');
+			$currentNav.siblings().removeClass('selected');	
+			window.location.hash = "";		        
+            $nextBox.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutRightBig').on('animationend webkitAnimationEnd', function () {                						                
+                $nextBox.hide().removeClass('fadeOutRightBig').off('animationend webkitAnimationEnd');
+                $currentBox.show().addClass('fadeInLeftBig');
             });
-            $next.removeClass('opac');
         }
     }
-
-
 
     function getItem(e, item) {
         e.preventDefault();
         window.location.hash = "";
-        $('.fadeInRightBig, .fadeInLeftBig').removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
-            cakes = $('.boxes.' + item);
+		$currentBox.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
+			$currentBox = $('.boxes.' + item);
+			$nextBox = $currentBox.next();
+			$prevBox = $currentBox.prev('article').length ? $currentBox.prev() : "";	
             $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
-            cakes.show().addClass('fadeInLeftBig');
+            $currentBox.show().addClass('fadeInLeftBig');
         });
     }
 
-	
 
-    (function init(loc) {
+    (function init(loc) {				
+		if (_hash.length>0) { //hash nav for linking
+            var $hashBox = $("article:contains('" + _hash + "')");
+			if ($hashBox.length) {
+				$currentNav = $nav.find("li:contains('" + _hash + "')").addClass('selected');
+				$nextBox = $hashBox.next();		
+				$prevBox = $hashBox.prev();						
+				$currentBox.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
+					$currentBox.hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
+					$currentBox = $hashBox;
+					$currentBox.show().addClass('fadeInLeftBig');													
+				});				            
+			}
+		}
 		
-        if (_hash !== "" && _hash !== "#") {
-            var aHash = _hash.replace('#', '').toLowerCase();
-            if ($('.boxes.' + aHash).length) {
-                cakes = $('.boxes.' + aHash).show().addClass('fadeInRightBig visible');
-				
-                if ($boxes.eq(0).hasClass(aHash.toLowerCase()) && $prev.length) {
-                    $prev.removeClass('opac');
-                }
-                $nav.find('.'+aHash).addClass('selected');
-            } else {
-                cakes = $boxes.eq(0).show().addClass('fadeInRightBig');
-            }
-        } else {
-            cakes = $('.boxes').eq(0).show().addClass('fadeInRightBig');
-        }
-
-        $next.on('click', nextItem);
-        $prev.on('click', prevItem);
         $boxes.on("swiperight", prevItem);
         $boxes.on("swipeleft", nextItem);
 
@@ -99,27 +83,18 @@
             $helper.fadeOut(500);
         }, 3000);
 
-        $nav.on('click', function (event) {
-            var link = ($(event.target).attr('class'));
-            if (link.indexOf('selected') > 0) {
-                return
-            }
-            getItem(event, link);
-            $(event.target).addClass('selected').siblings().removeClass('selected');
+        $nav.on('click', function (event) {			
+            var $t = $(event.target);
+			if ($t.hasClass('selected')) return;
+            getItem(event, $t.attr('class'));
+            $currentNav = $(event.target);
+			$currentNav.addClass('selected').siblings().removeClass('selected');
         });
-
-
-        /*$(document).on('click', '.go', function (e) {
-            e.preventDefault();
-            $b.addClass('fadeOutUpBig animated').on('animationend webkitAnimationEnd', function () {
-                window.location.href = $(e.target).parents('a').attr('href');
-            });
-        });*/
 
     })()
 
-
 })();
+
 
 (function ($) {
     $.fn.whelkit = function (text) {

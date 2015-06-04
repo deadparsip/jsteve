@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Quicksand:400,700);
 body {
     font-family: 'Quicksand', sans-serif; width:100%; margin:0; padding:0; background:#000;overflow-x:hidden;overflow-y:scroll;min-height:600px;
-    transition:background 18s;
+    transition:background 18s; min-height:700px;
 }
 body.whelk { background:#00a8ff}
 body.nail { background:#ff0030}
@@ -102,6 +102,9 @@ article:nth-child(2) {
 .boxes p, .boxes li { 
 	margin:0 2%;
 	text-align:left
+}
+.boxes p {
+	margin:15px 2%;
 }
 .stories .boxes p {
 	margin:2%;
