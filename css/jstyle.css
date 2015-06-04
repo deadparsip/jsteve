@@ -40,7 +40,10 @@ a#home {
 }
 
 .helper {
-        -webkit-transition: all 2.6s ease-out; transition: all 2.6s ease-out; color:#fff;
+        -moz-transition: 6s ease-out; -webkit-transition: 6s ease-out; transition: all 6s; color:#fff;
+}
+.helper.fadeout {
+	opacity:0;
 }
 
 p.go {

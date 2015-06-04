@@ -1,11 +1,8 @@
 'use strict';
 
 (function Calippo() {
-			
-	var $istouchdevice = typeof window.ontouchstart !== 'undefined',
-		loc = 'home',
-        $helper = $('.helper'),
-        $boxes = $('.boxes'),
+
+	var $boxes = $('.boxes'),
 		$currentBox = $boxes.eq(0),
 		$nextBox = $boxes.eq(1),
 		$prevBox = $boxes.eq(0),
@@ -61,7 +58,7 @@
     }
 
 
-    (function init(loc) {				
+    (function init($) {				
 		if (_hash.length>0) { //hash nav for linking
             var $hashBox = $("article:contains('" + _hash + "')");
 			if ($hashBox.length) {
@@ -79,26 +76,14 @@
         $boxes.on("swiperight", prevItem);
         $boxes.on("swipeleft", nextItem);
 
-        setTimeout(function () {
-            $helper.fadeOut(500);
-        }, 3000);
-
         $nav.on('click', function (event) {			
             var $t = $(event.target);
 			if ($t.hasClass('selected')) return;
             getItem(event, $t.attr('class'));
             $currentNav = $(event.target);
 			$currentNav.addClass('selected').siblings().removeClass('selected');
-        });
-
-    })()
+        });		
+	
+    })(jQuery)
 
 })();
-
-
-(function ($) {
-    $.fn.whelkit = function (text) {
-        return text.replace(/[^a-z,^A-Z]/g, '').replace('selected', '').replace('circle', '').slice(0, 20);
-    };
-}(jQuery));
-
