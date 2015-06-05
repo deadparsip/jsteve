@@ -1,4 +1,4 @@
-(function Calippo() {
+(function Calippo($) {
     'use strict';
 
     var $boxes = $('.boxes'),
@@ -44,9 +44,11 @@
         }
     }
 
-    function getItem(e, item) {
-        e.preventDefault();
-        window.location.hash = "";
+    function getItem(e) {        
+		var $t = $(e.target),
+			item = $t.attr('class');
+		if ($t.hasClass('selected')) return;			
+		window.location.hash = "";
         $currentBox.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
             $currentBox = $('.boxes.' + item);
             $nextBox = $currentBox.next();
@@ -54,10 +56,12 @@
             $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
             $currentBox.show().addClass('fadeInLeftBig');
         });
+		$currentNav = $(e.target);
+		$currentNav.addClass('selected').siblings().removeClass('selected');
     }
 
 
-    (function init($) {
+    (function init() {
         if (_hash.length > 0) { //hash navigations.. might want to deep link or sth
             var $hashBox = $("article:contains('" + _hash + "')");
             if ($hashBox.length) {
@@ -74,15 +78,8 @@
 
         $boxes.on("swiperight", prevItem);
         $boxes.on("swipeleft", nextItem);
+        $nav.on('click', function (event) { getItem(event); });
 
-        $nav.on('click', function (event) {
-            var $t = $(event.target);
-            if ($t.hasClass('selected')) return;
-            getItem(event, $t.attr('class'));
-            $currentNav = $(event.target);
-            $currentNav.addClass('selected').siblings().removeClass('selected');
-        });
+    })();
 
-    })(jQuery);
-
-})();
+})(jQuery);
