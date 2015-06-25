@@ -5,11 +5,8 @@
         $currentBox = $boxes.eq(0),
         $nextBox = $boxes.eq(1),
         $prevBox = $boxes.eq(0),
-        $titles = $boxes.find('h2'),
-        timer = 1,
         $nav = $('nav'),
         $currentNav = $nav.find('li').eq(0),
-        $go = $('p.go'),
         _hash = window.location.hash.replace('#', '').toLowerCase();
 
 
@@ -48,9 +45,9 @@
 		var $t = $(e.target),
 			item = $t.attr('class');
 		if ($t.hasClass('selected')) return;			
-		window.location.hash = "";
         $currentBox.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
-            $currentBox = $('.boxes.' + item);
+            console.log(item);
+			$currentBox = $('.boxes.'+item);
             $nextBox = $currentBox.next();
             $prevBox = $currentBox.prev('article').length ? $currentBox.prev() : "";
             $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
@@ -59,10 +56,9 @@
 		$currentNav = $(e.target);
 		$currentNav.addClass('selected').siblings().removeClass('selected');
     }
-
-
-    (function init() {
-        if (_hash.length > 0) { //hash navigations.. might want to deep link or sth
+	
+	(function hashLinking(){
+		if (_hash.length > 0) { //hash navigations.. might want to deep link or sth
             var $hashBox = $("article:contains('" + _hash + "')");
             if ($hashBox.length) {
                 $currentNav = $nav.find("li:contains('" + _hash + "')").addClass('selected');
@@ -75,11 +71,12 @@
                 });
             }
         }
-
+	})();	
+	
+    (function initThoBlud() {
         $boxes.on("swiperight", prevItem);
         $boxes.on("swipeleft", nextItem);
         $nav.on('click', function (event) { getItem(event); });
-
     })();
 
 })(jQuery);
