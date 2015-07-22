@@ -1,0 +1,18 @@
+﻿<div ng-controller="poetryController">
+
+    <nav>
+        <ul>
+            <li class="poetry" ng-repeat="poem in poems" ng-click="changeActivePoem($index)">{{$index}}</li>
+        </ul>
+    </nav>
+
+
+    <article ng-repeat="poem in poems" class="boxes animated fadeIn" ng-if="activePoem == $index">
+        <h2>{{poem.title}}</h2>
+        <div ng-bind-html="poem.content"></div>
+        <p><em>fin</em></p>
+    </article>
+
+
+
+</div>

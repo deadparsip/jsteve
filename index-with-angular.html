@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Jon Stevens, dispenser of abstractions, cuckolder of mind-spoons, vin de table, very web developer.">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+<meta http-equiv="cleartype" content="on">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<title>JSTEVE.UK</title>
+
+<link rel="stylesheet" href="css/jstyle.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+
+<body class="home" ng-app="whelk" ng-controller="MainController">
+<div class="fb-like" data-href="http://www.thevaguewhelk.com/" data-width="300" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+
+<h1><a href="http://jsteve.uk/#home">sdsdsd</a></h1>
+
+<div id="wrapper">
+	
+	<div id="main" class="cf home">	
+		
+		<nav>
+			<ul>
+				<li class="poetry" ng-repeat="nav in navs" ng-click="changeActiveSection($index,event)">{{nav.link}}</li>				
+			</ul>
+		</nav>		
+
+        <article ng-repeat="section in sections" class="home boxes animated fadeInUpBig" ng-if="activeSection == $index">
+            <section ng-if="section.showContent" ng-include="section.templateUrl"></section>
+            <section ng-if="!section.showContent">
+				<h2>{{section.name}}</h2>			                
+                <img ng-src="{{section.cover}}" class="img-responsive main" ng-alt="{{section.alt}}">
+                <section ng-bind-html="section.desc"></section>
+				<a ng-click="showContent($index,event)">show</a>
+            </section>
+        </article>
+		
+	</div>
+</div>
+
+
+<div id="fb-root"></div>
+<script src="js/angular.js"></script>
+<script src="js/angular-sanitize.min.js"></script>
+<script src="js/Controller.js"></script>    
+<script src="js/poetryController.js"></script>    
+
+</body>
+</html>
+
+			
