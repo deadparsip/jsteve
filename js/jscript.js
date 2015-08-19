@@ -7,7 +7,8 @@
         $prevBox = $boxes.eq(0),
         $nav = $('nav'),
         $currentNav = $nav.find('li').eq(0),
-        _hash = window.location.hash.replace('#', '').toLowerCase();
+        _hash = window.location.hash.replace('#', '').toLowerCase(),
+		pause = false;
 
 
     function nextItem(e) {
@@ -18,10 +19,10 @@
             $nextBox = $currentBox.next().length ? $currentBox.next() : "";
             $currentNav = $currentNav.hasClass('selected') ? $currentNav.next().addClass('selected') : $currentNav.addClass('selected');
             $currentNav.siblings().removeClass('selected');
-            $prevBox.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
+            $prevBox.removeClass('fadeInUp').addClass('fadeOutDown').on('animationend webkitAnimationEnd', function () {
                 window.location.hash = "";
-                $prevBox.hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
-                $currentBox.show().addClass('fadeInRightBig');
+                $prevBox.hide().removeClass('fadeOutDown').off('animationend webkitAnimationEnd');
+                $currentBox.show().addClass('fadeInUp');
             });
         }
     }
@@ -34,27 +35,34 @@
             $currentNav = $currentNav.prev().length ? $currentNav.prev().addClass('selected') : $currentNav.removeClass('selected');
             $currentNav.siblings().removeClass('selected');
             window.location.hash = "";
-            $nextBox.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutRightBig').on('animationend webkitAnimationEnd', function () {
-                $nextBox.hide().removeClass('fadeOutRightBig').off('animationend webkitAnimationEnd');
-                $currentBox.show().addClass('fadeInLeftBig');
+            $nextBox.removeClass('fadeInUp').addClass('fadeOutDown').on('animationend webkitAnimationEnd', function () {
+                $nextBox.hide().removeClass('fadeOutDown').off('animationend webkitAnimationEnd');
+                $currentBox.show().addClass('fadeInUp');
             });
         }
     }
 
-    function getItem(e) {        
-		var $t = $(e.target),
-			item = $t.attr('class');
-		if ($t.hasClass('selected')) return;			
-        $currentBox.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
-            console.log(item);
-			$currentBox = $('.boxes.'+item);
-            $nextBox = $currentBox.next();
-            $prevBox = $currentBox.prev('article').length ? $currentBox.prev() : "";
-            $(this).hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
-            $currentBox.show().addClass('fadeInLeftBig');
-        });
-		$currentNav = $(e.target);
-		$currentNav.addClass('selected').siblings().removeClass('selected');
+    function getItem(e) {        								
+		if (pause == false) {
+			pause = true;
+			console.log(pause)
+			var $t = $(e.target),
+				item = $t.attr('class');
+			if ($t.hasClass('selected')) return;		
+			$currentNav = $(e.target);
+			$currentNav.addClass('selected').siblings().removeClass('selected');			
+			$currentBox.addClass('fadeOutDown').on('animationend webkitAnimationEnd', function () {
+				console.log($t);
+				$currentBox = $('.boxes.'+item);
+				$nextBox = $currentBox.next();
+				$prevBox = $currentBox.prev('article').length ? $currentBox.prev() : "";
+				$(this).hide().removeClass('fadeOutDown').off('animationend webkitAnimationEnd');
+				$currentBox.show().addClass('fadeInUp');				
+			});		
+		}
+		setTimeout(function() {
+			pause = false;
+		},500)			
     }
 	
 	(function hashLinking(){
@@ -64,18 +72,20 @@
                 $currentNav = $nav.find("li:contains('" + _hash + "')").addClass('selected');
                 $nextBox = $hashBox.next();
                 $prevBox = $hashBox.prev();
-                $currentBox.removeClass('fadeInLeftBig fadeInRightBig').addClass('fadeOutLeftBig').on('animationend webkitAnimationEnd', function () {
-                    $currentBox.hide().removeClass('fadeOutLeftBig').off('animationend webkitAnimationEnd');
+                $currentBox.removeClass('fadeInUp').addClass('fadeOutDown').on('animationend webkitAnimationEnd', function () {
+                    $currentBox.hide().removeClass('fadeOutDown').off('animationend webkitAnimationEnd');
                     $currentBox = $hashBox;
-                    $currentBox.show().addClass('fadeInLeftBig');
+                    $currentBox.show().addClass('fadeInUp');
                 });
             }
         }
 	})();	
 	
     (function initThoBlud() {
-        $boxes.on("swiperight", prevItem);
-        $boxes.on("swipeleft", nextItem);
+        if (!!('ontouchstart' in window)) {
+			$boxes.on("swiperight", prevItem);
+			$boxes.on("swipeleft", nextItem);
+		}
         $nav.on('click', function (event) { getItem(event); });
     })();
 

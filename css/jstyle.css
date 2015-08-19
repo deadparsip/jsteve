@@ -77,15 +77,19 @@ nav {
 nav ul {
 	margin:0;
 	padding-left:0;
+	display:flex;
+	flex-wrap: wrap;
+	 justify-content: center;
 }
 nav li {
 	color: rgba(204, 204, 204,0.8);
 	display: inline-block;
-	width: 23%;
+	width: 13%;
 	cursor:pointer;	
-	transition:all 1s;
+	transition:all 0.4s;
 	color: rgba(204, 204, 204,0.8);
-	margin: 2% 0;
+	padding: 2% 0;
+	min-width:70px;
 }
 
 nav li.selected{
@@ -93,7 +97,7 @@ nav li.selected{
 }
 
 li.spacesloth {
-  width: 35%;
+  flex-grow: 2;
 }
 #main article nav li {
 	color:#666;
@@ -125,9 +129,9 @@ article:nth-child(2) {
 .boxes img, .stories .boxes p, .bio .boxes p {
     width:96%;    
 }
-.boxes img.main {
-	width: 107%;
-	margin: 0px 0px 0px -4%;
+.boxes img {
+	width: 110.5%;
+	margin: 0px 0px 0px -5%;
 	max-width: 980px;
 }
 .poetry .boxes a,.stories .boxes a {
@@ -137,6 +141,15 @@ article:nth-child(2) {
     background:#aeadad;
 }
 
+.vaguely {
+	width: 20vw;
+    position: absolute;
+    top: 0%;
+    left: 2%;
+    max-width: 200px;
+    min-width: 105px;
+    z-index: -1;
+	}
 
 
 #botty {
@@ -244,12 +257,8 @@ article:nth-child(2) {
 		margin-left:2%;
 	}
 	nav li {
-		display: inline-block;
-		width: 11%;
+		display: inline-block;	
 		cursor:pointer;		
-	}
-	nav li.spacesloth { 
-		width:25%;
 	}
     
 	#wrapper {
@@ -335,13 +344,12 @@ article:nth-child(2) {
         display:block;
     }
 	
-	nav li.spacesloth { 
-		width:19%;
+	li.spacesloth {
+		flex-grow: 1;
 	}
-	.boxes img.main {
-		width: 100%;
-		margin: inherit;
-		max-width: 980px;
+	
+	.boxes img {
+		max-width: 1200px;
 	}
 }
 
