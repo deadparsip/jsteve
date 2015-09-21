@@ -80,25 +80,25 @@ nav ul {
 	display:flex;
 	flex-wrap: wrap;
 	 justify-content: center;
+	 flex-direction: row
 }
 nav li {
 	color: rgba(204, 204, 204,0.8);
 	display: inline-block;
-	width: 13%;
+	width: 12%;
 	cursor:pointer;	
 	transition:all 0.4s;
 	color: rgba(204, 204, 204,0.8);
-	padding: 2% 0;
-	min-width:70px;
+	margin: auto;
+	padding:3% 0 2%;
+	width:100px;
 }
 
 nav li.selected{
 	color:#fff;
 }
 
-li.spacesloth {
-  flex-grow: 2;
-}
+
 #main article nav li {
 	color:#666;
 }
@@ -130,8 +130,8 @@ article:nth-child(2) {
     width:96%;    
 }
 .boxes img {
-	width: 110.5%;
-	margin: 0px 0px 0px -5%;
+	width: 105%;
+	margin: 0px 0px 0px -2%;
 	max-width: 980px;
 }
 .poetry .boxes a,.stories .boxes a {
@@ -151,6 +151,21 @@ article:nth-child(2) {
     z-index: -1;
 	}
 
+.new-things img{
+	margin-bottom:30px;
+}
+
+.new-things p {
+	margin-bottom:20px;
+}
+
+
+html .fb_iframe_widget {
+    display: inline-block;
+    position: absolute;
+    right: 1%;
+	top:0;
+}
 
 #botty {
     position:fixed;bottom:-80px;width:100%;min-height:45px;margin:0 auto;
@@ -312,6 +327,11 @@ article:nth-child(2) {
     #botty .contact, #botty .contact a,#botty .contact.git,#botty .contact.git a {
         width:50px;height:50px;
     }   
+	.boxes img {
+		max-width: 980px;
+		width: 112%;
+		margin: 0px 0px 0px -6%;		
+	}
     
 }
 
@@ -349,7 +369,7 @@ article:nth-child(2) {
 	}
 	
 	.boxes img {
-		max-width: 1200px;
+		max-width: 1200px;	
 	}
 }
 

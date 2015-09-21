@@ -19,10 +19,10 @@
             $nextBox = $currentBox.next().length ? $currentBox.next() : "";
             $currentNav = $currentNav.hasClass('selected') ? $currentNav.next().addClass('selected') : $currentNav.addClass('selected');
             $currentNav.siblings().removeClass('selected');
-            $prevBox.removeClass('fadeInUp').addClass('fadeOutDown').on('animationend webkitAnimationEnd', function () {
+            $prevBox.removeClass('fadeInUp fadeInRight fadeInLeft').addClass('fadeOutLeft').on('animationend webkitAnimationEnd', function () {
                 window.location.hash = "";
-                $prevBox.hide().removeClass('fadeOutDown').off('animationend webkitAnimationEnd');
-                $currentBox.show().addClass('fadeInUp');
+                $prevBox.hide().removeClass('fadeOutLeft').off('animationend webkitAnimationEnd');
+                $currentBox.show().addClass('fadeInRight');
             });
         }
     }
@@ -35,24 +35,22 @@
             $currentNav = $currentNav.prev().length ? $currentNav.prev().addClass('selected') : $currentNav.removeClass('selected');
             $currentNav.siblings().removeClass('selected');
             window.location.hash = "";
-            $nextBox.removeClass('fadeInUp').addClass('fadeOutDown').on('animationend webkitAnimationEnd', function () {
-                $nextBox.hide().removeClass('fadeOutDown').off('animationend webkitAnimationEnd');
-                $currentBox.show().addClass('fadeInUp');
+            $nextBox.removeClass('fadeInUp fadeInRight fadeInLeft').addClass('fadeOutRight').on('animationend webkitAnimationEnd', function () {
+                $nextBox.hide().removeClass('fadeOutRight').off('animationend webkitAnimationEnd');
+                $currentBox.show().addClass('fadeInLeft');
             });
         }
     }
 
     function getItem(e) {        								
 		if (pause == false) {
-			pause = true;
-			console.log(pause)
+			pause = true;			
 			var $t = $(e.target),
 				item = $t.attr('class');
 			if ($t.hasClass('selected')) return;		
 			$currentNav = $(e.target);
 			$currentNav.addClass('selected').siblings().removeClass('selected');			
-			$currentBox.addClass('fadeOutDown').on('animationend webkitAnimationEnd', function () {
-				console.log($t);
+			$currentBox.removeClass('fadeInLeft fadeInRight fadeInUp').addClass('fadeOutDown').on('animationend webkitAnimationEnd', function () {
 				$currentBox = $('.boxes.'+item);
 				$nextBox = $currentBox.next();
 				$prevBox = $currentBox.prev('article').length ? $currentBox.prev() : "";
@@ -66,7 +64,7 @@
     }
 	
 	(function hashLinking(){
-		if (_hash.length > 0) { //hash navigations.. might want to deep link or sth
+		if (_hash.length > 0) { //hash navigation.. might want to deep link//might expand on this and save state..
             var $hashBox = $("article:contains('" + _hash + "')");
             if ($hashBox.length) {
                 $currentNav = $nav.find("li:contains('" + _hash + "')").addClass('selected');
@@ -81,8 +79,8 @@
         }
 	})();	
 	
-    (function initThoBlud() {
-        if (!!('ontouchstart' in window)) {
+    (function initThoBlud() { //sorry
+        if (!!('ontouchstart' in window)) { //this strangely satisfying/neat/not foolproof	
 			$boxes.on("swiperight", prevItem);
 			$boxes.on("swipeleft", nextItem);
 		}
